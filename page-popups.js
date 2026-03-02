@@ -1,5 +1,3 @@
-<script>
-
 let originalURL = window.location.href;
 
 $(document).on('click', '.button', function(e) {
@@ -7,7 +5,6 @@ $(document).on('click', '.button', function(e) {
 
   var postURL = $(this).attr("href");
 
-  // меняем URL в адресной строке
   history.pushState({ modal: true }, '', postURL);
 
   $('#project-pop').fadeIn(200);
@@ -27,7 +24,6 @@ function closeModal() {
   $('#project-pop').fadeOut(200);
   $('#ajaxContainer').html('');
 
-  // возвращаем исходный URL
   history.pushState({}, '', originalURL);
 
   if (typeof lenis !== "undefined") {
@@ -62,7 +58,6 @@ function loadDoc(postURL) {
   xhttp.send();
 }
 
-// 🔥 Обработка кнопки "Назад"
 window.addEventListener('popstate', function(event) {
   if (!event.state || !event.state.modal) {
     $('#project-pop').fadeOut(200);
@@ -73,5 +68,3 @@ window.addEventListener('popstate', function(event) {
     }
   }
 });
-
-</script>
