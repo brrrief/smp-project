@@ -1,5 +1,6 @@
 let originalURL = window.location.href;
 
+// Открытие модалки
 $(document).on('click', '.button', function(e) {
   e.preventDefault();
 
@@ -16,6 +17,7 @@ $(document).on('click', '.button', function(e) {
   loadDoc(postURL);
 });
 
+// Закрытие по кнопке
 $(document).on('click', '.modal-close', function() {
   closeModal();
 });
@@ -31,6 +33,7 @@ function closeModal() {
   }
 }
 
+// AJAX загрузка контента
 function loadDoc(postURL) {
   $('#ajaxContainer').html('');
 
@@ -38,18 +41,13 @@ function loadDoc(postURL) {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
 
-      document.getElementById("ajaxContainer").innerHTML =
-        this.responseText;
+      document.getElementById("ajaxContainer").innerHTML = this.responseText;
 
       setTimeout(function() {
-
         const modal = document.querySelector('.modal-on');
-        modal.scrollTop = 0;
-
-        modal.addEventListener('wheel', function(e) {
-          e.stopPropagation();
-        }, { passive: false });
-
+        if (modal) {
+          modal.scrollTop = 0;
+        }
       }, 100);
 
     }
@@ -58,6 +56,21 @@ function loadDoc(postURL) {
   xhttp.send();
 }
 
+// Глобальный скролл модалки (работает независимо от позиции мышки)
+document.addEventListener('wheel', function(e) {
+  const modal = document.querySelector('.modal-on');
+  const popup = document.getElementById('project-pop');
+
+  if (!modal || !popup) return;
+
+  const isVisible = popup.offsetParent !== null;
+  if (!isVisible) return;
+
+  e.preventDefault(); // блокируем скролл страницы
+  modal.scrollTop += e.deltaY; // прокручиваем модалку
+}, { passive: false });
+
+// Обработка кнопки "назад"
 window.addEventListener('popstate', function(event) {
   if (!event.state || !event.state.modal) {
     $('#project-pop').fadeOut(200);
