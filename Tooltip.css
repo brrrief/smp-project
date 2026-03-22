@@ -1,0 +1,17 @@
+.tippy-box[data-theme~='white-custom'] {
+  background: url("https://cdn.prod.website-files.com/698d76c66c1f297afb5f24fc/6995de02e70e5efd56e01459_Rectangle%20149481480.svg") no-repeat right bottom;
+;
+  background-size: cover;
+  color: #000000;   
+  border-radius: 0;
+}
+
+.tippy-box[data-theme~='white-custom'] .tippy-content {
+  padding: 0.5rem;
+}
+
+.tippy-box[data-theme~='white-custom'] .tippy-arrow {
+  display: none;
+}
+
+
